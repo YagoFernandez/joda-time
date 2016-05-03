@@ -42,25 +42,25 @@ import org.joda.time.format.PeriodFormatter;
 public final class Days extends BaseSingleFieldPeriod {
 
     /** Constant representing zero days. */
-    public static final Days ZERO = Pool.retrieveDays(0);
+    public static final Days ZERO = retrieveFromPool(0);
     /** Constant representing one day. */
-    public static final Days ONE = Pool.retrieveDays(1);
+    public static final Days ONE = retrieveFromPool(1);
     /** Constant representing two days. */
-    public static final Days TWO = Pool.retrieveDays(2);
+    public static final Days TWO = retrieveFromPool(2);
     /** Constant representing three days. */
-    public static final Days THREE = Pool.retrieveDays(3);
+    public static final Days THREE = retrieveFromPool(3);
     /** Constant representing four days. */
-    public static final Days FOUR = Pool.retrieveDays(4);
+    public static final Days FOUR = retrieveFromPool(4);
     /** Constant representing five days. */
-    public static final Days FIVE = Pool.retrieveDays(5);
+    public static final Days FIVE = retrieveFromPool(5);
     /** Constant representing six days. */
-    public static final Days SIX = Pool.retrieveDays(6);
+    public static final Days SIX = retrieveFromPool(6);
     /** Constant representing seven days. */
-    public static final Days SEVEN = Pool.retrieveDays(7);
+    public static final Days SEVEN = retrieveFromPool(7);
     /** Constant representing the maximum number of days that can be stored in this object. */
-    public static final Days MAX_VALUE = Pool.retrieveDays(Integer.MAX_VALUE);
+    public static final Days MAX_VALUE = retrieveFromPool(Integer.MAX_VALUE);
     /** Constant representing the minimum number of days that can be stored in this object. */
-    public static final Days MIN_VALUE = Pool.retrieveDays(Integer.MIN_VALUE);
+    public static final Days MIN_VALUE = retrieveFromPool(Integer.MIN_VALUE);
 
     /** The paser to use for this class. */
     private static final PeriodFormatter PARSER = ISOPeriodFormat.standard().withParseType(PeriodType.days());
@@ -77,9 +77,14 @@ public final class Days extends BaseSingleFieldPeriod {
      * @return the instance of Days
      */
     public static Days days(int days) {
-        return Pool.retrieveDays(days);
+    	
+    	return retrieveFromPool(days);
     }
 
+    private static Days retrieveFromPool(int numeral) {
+    	return (Days) PoolManager.getPool(Days.class).retrieve(numeral);
+    }
+    
     //-----------------------------------------------------------------------
     /**
      * Creates a <code>Days</code> representing the number of whole days
