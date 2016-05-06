@@ -42,17 +42,17 @@ import org.joda.time.format.PeriodFormatter;
 public final class Minutes extends BaseSingleFieldPeriod {
 
     /** Constant representing zero minutes. */
-    public static final Minutes ZERO = (Minutes) retrieveFromPool(0);
+    public static final Minutes ZERO = retrieveFromPool(0);
     /** Constant representing one minute. */
-    public static final Minutes ONE = (Minutes) retrieveFromPool(1);
+    public static final Minutes ONE = retrieveFromPool(1);
     /** Constant representing two minutes. */
-    public static final Minutes TWO = (Minutes) retrieveFromPool(2);
+    public static final Minutes TWO = retrieveFromPool(2);
     /** Constant representing three minutes. */
-    public static final Minutes THREE = (Minutes) retrieveFromPool(3);
+    public static final Minutes THREE = retrieveFromPool(3);
     /** Constant representing the maximum number of minutes that can be stored in this object. */
-    public static final Minutes MAX_VALUE = (Minutes) retrieveFromPool(Integer.MAX_VALUE);
+    public static final Minutes MAX_VALUE = retrieveFromPool(Integer.MAX_VALUE);
     /** Constant representing the minimum number of minutes that can be stored in this object. */
-    public static final Minutes MIN_VALUE = (Minutes) retrieveFromPool(Integer.MIN_VALUE);
+    public static final Minutes MIN_VALUE = retrieveFromPool(Integer.MIN_VALUE);
 
     /** The paser to use for this class. */
     private static final PeriodFormatter PARSER = ISOPeriodFormat.standard().withParseType(PeriodType.minutes());
@@ -69,7 +69,7 @@ public final class Minutes extends BaseSingleFieldPeriod {
      * @return the instance of Minutes
      */
     public static Minutes minutes(int minutes) {
-        return (Minutes) retrieveFromPool(minutes);
+        return retrieveFromPool(minutes);
     }
 
     private static Minutes retrieveFromPool(int numeral) {

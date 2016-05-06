@@ -42,35 +42,35 @@ import org.joda.time.format.PeriodFormatter;
 public final class Months extends BaseSingleFieldPeriod {
 
     /** Constant representing zero months. */
-    public static final Months ZERO = Pool.retrieveMonths(0);
+    public static final Months ZERO = retrieveFromPool(0);
     /** Constant representing one month. */
-    public static final Months ONE = Pool.retrieveMonths(1);
+    public static final Months ONE = retrieveFromPool(1);
     /** Constant representing two months. */
-    public static final Months TWO = Pool.retrieveMonths(2);
+    public static final Months TWO = retrieveFromPool(2);
     /** Constant representing three months. */
-    public static final Months THREE = Pool.retrieveMonths(3);
+    public static final Months THREE = retrieveFromPool(3);
     /** Constant representing four months. */
-    public static final Months FOUR = Pool.retrieveMonths(4);
+    public static final Months FOUR = retrieveFromPool(4);
     /** Constant representing five months. */
-    public static final Months FIVE = Pool.retrieveMonths(5);
+    public static final Months FIVE = retrieveFromPool(5);
     /** Constant representing six months. */
-    public static final Months SIX = Pool.retrieveMonths(6);
+    public static final Months SIX = retrieveFromPool(6);
     /** Constant representing seven months. */
-    public static final Months SEVEN = Pool.retrieveMonths(7);
+    public static final Months SEVEN = retrieveFromPool(7);
     /** Constant representing eight months. */
-    public static final Months EIGHT = Pool.retrieveMonths(8);
+    public static final Months EIGHT = retrieveFromPool(8);
     /** Constant representing nine months. */
-    public static final Months NINE = Pool.retrieveMonths(9);
+    public static final Months NINE = retrieveFromPool(9);
     /** Constant representing ten months. */
-    public static final Months TEN = Pool.retrieveMonths(10);
+    public static final Months TEN = retrieveFromPool(10);
     /** Constant representing eleven months. */
-    public static final Months ELEVEN = Pool.retrieveMonths(11);
+    public static final Months ELEVEN = retrieveFromPool(11);
     /** Constant representing twelve months. */
-    public static final Months TWELVE = Pool.retrieveMonths(12);
+    public static final Months TWELVE = retrieveFromPool(12);
     /** Constant representing the maximum number of months that can be stored in this object. */
-    public static final Months MAX_VALUE = Pool.retrieveMonths(Integer.MAX_VALUE);
+    public static final Months MAX_VALUE = retrieveFromPool(Integer.MAX_VALUE);
     /** Constant representing the minimum number of months that can be stored in this object. */
-    public static final Months MIN_VALUE = Pool.retrieveMonths(Integer.MIN_VALUE);
+    public static final Months MIN_VALUE = retrieveFromPool(Integer.MIN_VALUE);
 
     /** The parser to use for this class. */
     private static final PeriodFormatter PARSER = ISOPeriodFormat.standard().withParseType(PeriodType.months());
@@ -87,7 +87,11 @@ public final class Months extends BaseSingleFieldPeriod {
      * @return the instance of Months
      */
     public static Months months(int months) {
-        return Pool.retrieveMonths(months);
+        return retrieveFromPool(months);
+    }
+    
+    private static Months retrieveFromPool(int numeral) {
+    	return (Months) PoolManager.getPool(Months.class).retrieve(numeral);
     }
 
     //-----------------------------------------------------------------------

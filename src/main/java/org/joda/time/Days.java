@@ -77,7 +77,6 @@ public final class Days extends BaseSingleFieldPeriod {
      * @return the instance of Days
      */
     public static Days days(int days) {
-    	
     	return retrieveFromPool(days);
     }
 

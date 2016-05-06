@@ -42,17 +42,17 @@ import org.joda.time.format.PeriodFormatter;
 public final class Years extends BaseSingleFieldPeriod {
 
     /** Constant representing zero years. */
-    public static final Years ZERO = Pool.retrieveYears(0);
+    public static final Years ZERO = retrieveFromPool(0);
     /** Constant representing one year. */
-    public static final Years ONE = Pool.retrieveYears(1);
+    public static final Years ONE = retrieveFromPool(1);
     /** Constant representing two years. */
-    public static final Years TWO = Pool.retrieveYears(2);
+    public static final Years TWO = retrieveFromPool(2);
     /** Constant representing three years. */
-    public static final Years THREE = Pool.retrieveYears(3);
+    public static final Years THREE = retrieveFromPool(3);
     /** Constant representing the maximum number of years that can be stored in this object. */
-    public static final Years MAX_VALUE = Pool.retrieveYears(Integer.MAX_VALUE);
+    public static final Years MAX_VALUE = retrieveFromPool(Integer.MAX_VALUE);
     /** Constant representing the minimum number of years that can be stored in this object. */
-    public static final Years MIN_VALUE = Pool.retrieveYears(Integer.MIN_VALUE);
+    public static final Years MIN_VALUE = retrieveFromPool(Integer.MIN_VALUE);
 
     /** The paser to use for this class. */
     private static final PeriodFormatter PARSER = ISOPeriodFormat.standard().withParseType(PeriodType.years());
@@ -69,7 +69,11 @@ public final class Years extends BaseSingleFieldPeriod {
      * @return the instance of Years
      */
     public static Years years(int years) {
-        return Pool.retrieveYears(years);
+        return retrieveFromPool(years);
+    }
+    
+    private static Years retrieveFromPool(int numeral) {
+    	return (Years) PoolManager.getPool(Years.class).retrieve(numeral);
     }
 
     //-----------------------------------------------------------------------

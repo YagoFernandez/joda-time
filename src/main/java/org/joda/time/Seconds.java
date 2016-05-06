@@ -42,17 +42,17 @@ import org.joda.time.format.PeriodFormatter;
 public final class Seconds extends BaseSingleFieldPeriod {
 
     /** Constant representing zero seconds. */
-    public static final Seconds ZERO = Pool.retrieveSeconds(0);
+    public static final Seconds ZERO = retrieveFromPool(0);
     /** Constant representing one second. */
-    public static final Seconds ONE = Pool.retrieveSeconds(1);
+    public static final Seconds ONE = retrieveFromPool(1);
     /** Constant representing two seconds. */
-    public static final Seconds TWO = Pool.retrieveSeconds(2);
+    public static final Seconds TWO = retrieveFromPool(2);
     /** Constant representing three seconds. */
-    public static final Seconds THREE = Pool.retrieveSeconds(3);
+    public static final Seconds THREE = retrieveFromPool(3);
     /** Constant representing the maximum number of seconds that can be stored in this object. */
-    public static final Seconds MAX_VALUE = Pool.retrieveSeconds(Integer.MAX_VALUE);
+    public static final Seconds MAX_VALUE = retrieveFromPool(Integer.MAX_VALUE);
     /** Constant representing the minimum number of seconds that can be stored in this object. */
-    public static final Seconds MIN_VALUE = Pool.retrieveSeconds(Integer.MIN_VALUE);
+    public static final Seconds MIN_VALUE = retrieveFromPool(Integer.MIN_VALUE);
 
     /** The paser to use for this class. */
     private static final PeriodFormatter PARSER = ISOPeriodFormat.standard().withParseType(PeriodType.seconds());
@@ -69,7 +69,11 @@ public final class Seconds extends BaseSingleFieldPeriod {
      * @return the instance of Seconds
      */
     public static Seconds seconds(int seconds) {
-        return Pool.retrieveSeconds(seconds);
+        return retrieveFromPool(seconds);
+    }
+    
+    private static Seconds retrieveFromPool(int numeral) {
+    	return (Seconds) PoolManager.getPool(Seconds.class).retrieve(numeral);
     }
 
     //-----------------------------------------------------------------------
