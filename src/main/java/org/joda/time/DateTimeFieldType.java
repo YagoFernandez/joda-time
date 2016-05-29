@@ -16,6 +16,8 @@
 package org.joda.time;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Identifies a field, such as year or minuteOfHour, in a chronology-neutral way.
@@ -532,63 +534,53 @@ public abstract class DateTimeFieldType implements Serializable {
             }
         }
 
+        private Map<Byte, DateTimeFieldType> correspondences;
+        
+        private Map<Byte, DateTimeFieldType> getCorrespondences() {
+        	
+        	if (correspondences == null) {
+        		initCorrespondences();
+        	}
+        	return correspondences;
+        }
+        
+        private void initCorrespondences() {
+        	correspondences = new HashMap<Byte, DateTimeFieldType>();
+    		correspondences.put(ERA, ERA_TYPE);
+			correspondences.put(YEAR_OF_ERA, YEAR_OF_ERA_TYPE);
+			correspondences.put(CENTURY_OF_ERA, CENTURY_OF_ERA_TYPE);
+			correspondences.put(YEAR_OF_CENTURY, YEAR_OF_CENTURY_TYPE);
+			correspondences.put(YEAR, YEAR_TYPE);
+			correspondences.put(DAY_OF_YEAR, DAY_OF_YEAR_TYPE);
+			correspondences.put(MONTH_OF_YEAR, MONTH_OF_YEAR_TYPE);
+			correspondences.put(DAY_OF_MONTH, DAY_OF_MONTH_TYPE);
+			correspondences.put(WEEKYEAR_OF_CENTURY, WEEKYEAR_OF_CENTURY_TYPE);
+			correspondences.put(WEEKYEAR, WEEKYEAR_TYPE);
+			correspondences.put(WEEK_OF_WEEKYEAR, WEEK_OF_WEEKYEAR_TYPE);
+			correspondences.put(DAY_OF_WEEK, DAY_OF_WEEK_TYPE);
+			correspondences.put(HALFDAY_OF_DAY, HALFDAY_OF_DAY_TYPE);
+			correspondences.put(HOUR_OF_HALFDAY, HOUR_OF_HALFDAY_TYPE);
+			correspondences.put(CLOCKHOUR_OF_HALFDAY, CLOCKHOUR_OF_HALFDAY_TYPE);
+			correspondences.put(CLOCKHOUR_OF_DAY, CLOCKHOUR_OF_DAY_TYPE);
+			correspondences.put(HOUR_OF_DAY, HOUR_OF_DAY_TYPE);
+			correspondences.put(MINUTE_OF_DAY, MINUTE_OF_DAY_TYPE);
+			correspondences.put(MINUTE_OF_HOUR, MINUTE_OF_HOUR_TYPE);
+			correspondences.put(SECOND_OF_DAY, SECOND_OF_DAY_TYPE);
+			correspondences.put(SECOND_OF_MINUTE, SECOND_OF_MINUTE_TYPE);
+			correspondences.put(MILLIS_OF_DAY, MILLIS_OF_DAY_TYPE);
+			correspondences.put(MILLIS_OF_SECOND, MILLIS_OF_SECOND_TYPE);
+        }
+        
+        
         /**
          * Ensure a singleton is returned.
          * 
          * @return the singleton type
          */
         private Object readResolve() {
-            switch (iOrdinal) {
-                case ERA:
-                    return ERA_TYPE;
-                case YEAR_OF_ERA:
-                    return YEAR_OF_ERA_TYPE;
-                case CENTURY_OF_ERA:
-                    return CENTURY_OF_ERA_TYPE;
-                case YEAR_OF_CENTURY:
-                    return YEAR_OF_CENTURY_TYPE;
-                case YEAR:
-                    return YEAR_TYPE;
-                case DAY_OF_YEAR:
-                    return DAY_OF_YEAR_TYPE;
-                case MONTH_OF_YEAR:
-                    return MONTH_OF_YEAR_TYPE;
-                case DAY_OF_MONTH:
-                    return DAY_OF_MONTH_TYPE;
-                case WEEKYEAR_OF_CENTURY:
-                    return WEEKYEAR_OF_CENTURY_TYPE;
-                case WEEKYEAR:
-                    return WEEKYEAR_TYPE;
-                case WEEK_OF_WEEKYEAR:
-                    return WEEK_OF_WEEKYEAR_TYPE;
-                case DAY_OF_WEEK:
-                    return DAY_OF_WEEK_TYPE;
-                case HALFDAY_OF_DAY:
-                    return HALFDAY_OF_DAY_TYPE;
-                case HOUR_OF_HALFDAY:
-                    return HOUR_OF_HALFDAY_TYPE;
-                case CLOCKHOUR_OF_HALFDAY:
-                    return CLOCKHOUR_OF_HALFDAY_TYPE;
-                case CLOCKHOUR_OF_DAY:
-                    return CLOCKHOUR_OF_DAY_TYPE;
-                case HOUR_OF_DAY:
-                    return HOUR_OF_DAY_TYPE;
-                case MINUTE_OF_DAY:
-                    return MINUTE_OF_DAY_TYPE;
-                case MINUTE_OF_HOUR:
-                    return MINUTE_OF_HOUR_TYPE;
-                case SECOND_OF_DAY:
-                    return SECOND_OF_DAY_TYPE;
-                case SECOND_OF_MINUTE:
-                    return SECOND_OF_MINUTE_TYPE;
-                case MILLIS_OF_DAY:
-                    return MILLIS_OF_DAY_TYPE;
-                case MILLIS_OF_SECOND:
-                    return MILLIS_OF_SECOND_TYPE;
-                default:
-                    // Shouldn't happen.
-                    return this;
-            }
+        	Object result =  getCorrespondences().get(iOrdinal); 
+        	if (result == null) { result = this; }
+        	return result;
         }
     }
 
