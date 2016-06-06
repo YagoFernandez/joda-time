@@ -142,31 +142,8 @@ public abstract class DateTimeZone implements Serializable {
      * @return the default datetime zone object
      */
     public static DateTimeZone getDefault() {
-        DateTimeZone zone = cDefault.get();
-        if (zone == null) {
-            try {
-                try {
-                    String id = System.getProperty("user.timezone");
-                    if (id != null) {  // null check avoids stack overflow
-                        zone = forID(id);
-                    }
-                } catch (RuntimeException ex) {
-                    // ignored
-                }
-                if (zone == null) {
-                    zone = forTimeZone(TimeZone.getDefault());
-                }
-            } catch (IllegalArgumentException ex) {
-                // ignored
-            }
-            if (zone == null) {
-                zone = UTC;
-            }
-            if (!cDefault.compareAndSet(null, zone)) {
-                zone = cDefault.get();
-            }
-        }
-        return zone;
+    	DefaultDateTimeZone defaultDateTimeZone = new DefaultDateTimeZone(cDefault);
+    	return defaultDateTimeZone.getDefault();
     }
 
     /**
